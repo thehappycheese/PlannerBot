@@ -1,4 +1,10 @@
 function Cell(){
-	this.color = "green";
-	this.img = null;
+
+	this.terrain = [];
+	
+	this.world = null;
+
+	this.wall = false;
+	this.floor = "grass";
+
 }

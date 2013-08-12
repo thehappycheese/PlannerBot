@@ -1,7 +1,6 @@
 
 
-
-
+///* Cell.js
 
 function World(aw,ah){
 	"use strict";
@@ -32,26 +31,41 @@ function World(aw,ah){
 		return this.cells[y][x];
 	}).bind(this);
 	
-	
-	this.setCell = (function(x, y, value){
-		if(x<0 || x>=this.w || y<0 || y>=this.h){
-			return;
-		}
-		this.cells[y][x] = value;
-	}).bind(this);
-	
 	this.draw = (function(ctx){
 		var x, y;
 		for(x = 0 ; x<this.w; x++){
 			for(y = 0; y<this.h; y++){
-				ctx.fillStyle = this.getCell(x,y).color;
-				ctx.fillRect(x*size, y*size, size-1, size-1);
-				imgGrass.drawFrameAt(ctx, 0,x*size,y*size,0);
+				
+				ctx.fillStyle = this.getCell(x, y).color;
+				
+				res.i.grass.drawFrameAt(ctx, 0, x * size, y * size, 0);
+				if (this.getCell(x, y).wall) {
+					var a0 = 0,
+						a1 = 0,
+						a2 = 0,
+						a3 = 0;
+
+					if (this.getCell(x - 1, y)) {
+						a0 = this.getCell(x - 1, y).wall ? 1 : 0;
+					}
+					if (this.getCell(x, y-1)) {
+						a1 = this.getCell(x, y-1).wall ? 1 : 0;
+					}
+					if (this.getCell(x+1, y )) {
+						a2 = this.getCell(x+1, y).wall ? 1 : 0;
+					}
+					if (this.getCell(x, y + 1)) {
+						a3 = this.getCell(x, y + 1).wall ? 1 : 0;
+					}
+					var f = a0 | (a1 << 1) | (a2 << 2) | (a3 << 3);
+					res.i.wall.drawFrameAt(ctx, f, x * size, y * size, 0);
+				}
 			}
 		}
 	}).bind(this);
 	
 	// ========= CONSTRUCTION ===================
+	this.viewport = {w:10, h:10, x:0, y:0};
 	this.w = aw;
 	this.h = ah;
 	

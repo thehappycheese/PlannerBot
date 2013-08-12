@@ -16,12 +16,3 @@ function Entity(){
 
 }
 
-/**
-interface view(){
-	
-
-}
-
-
-VX3VY-8GCVT-KJQCY-RQ99X-MCF2R
-**/

@@ -1,44 +1,61 @@
 "use strict";
 
+///* ../lib/Canvas.js
+///* ../lib/Sprite.js
+///* World.js
 
 
-var imgGrass = new nImage("img/grass.png",1,1);
-var imgPlayer = new nImage("img/robot.png", 4, 2);
-imgPlayer.play = true;
+
+
+
+var res = {i:{}, a:{}};
+
+res.i.wall = new Sprite("img/wall2.png", 4, 4);
+res.i.grass = new Sprite("img/grass.png", 1, 1);
+res.i.player = new Sprite("img/robot2.png", 4, 2);
+res.i.star = new Sprite("img/star2.png", 1, 1);
 
 
 
 
 // =============================== INIT ===================================
 
-var world = new World(8, 8);
+document.title = "Planner Bot";
+
+var world = new World(15, 10);
 
 var size  = 16*3;
 
+var px = 0;
+var py = 0;
 
 
 //=============================== DECLARATIONS=============================
 
 
 var canvas = new Canvas("mainCanvas");
-canvas.setSize(size*8,size*8);
+canvas.setSize(size*15,size*10);
 
 
 canvas.on("mousedown", function(e){
-	//
+	var xx = Math.floor(canvas.mouseX / size);
+	var yy = Math.floor(canvas.mouseY / size);
+	world.getCell(xx, yy).wall = !world.getCell(xx, yy).wall;
 });
 
 
-
+var angl = 0, angr = 0;
+var magl = 0, magr = 0;
 canvas.on("update",function(delta){
-	imgPlayer.update();
+	res.i.player.update();
 });
 
 
-canvas.on("draw",function(ctx){
+canvas.on("draw", function (ctx) {
 	canvas.clear();
 	world.draw(ctx);
-	imgPlayer.drawCurrentFrameAt(ctx,32,32,0);
+	res.i.star.drawCurrentFrameAt(ctx,48,48,0);
+	res.i.player.drawCurrentFrameAt(ctx, Math.round(px/3)*3, Math.round(py/3)*3, 0);
 });
 
 
