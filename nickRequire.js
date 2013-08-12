@@ -17,8 +17,9 @@
 	var currentFile = null;
 	
 	var rules = [];
-	var orders = []
+	var orders = [];
 	
+	w.compiled = "";
 	
 	loopInspect();
 
@@ -30,7 +31,7 @@
 				rules.push(currentFile);
 			}
 			
-			currentFile = {url:url, after:[], name:getName(url), path:getPath(url)};
+			currentFile = {url:url, after:[], name:getName(url), path:getPath(url), content:""};
 			
 			var xreq = new XMLHttpRequest();
 				xreq.onreadystatechange = textLoaded;
@@ -48,6 +49,7 @@
 				for(var i = 0; i<text.length;i++){
 					if(text[i].substr(0,4)=="///*"){
 						var url = text[i].substr(5,text[i].length-5);
+						currentFile.content = e.target.responseText;
 						// =============== USE RELATIVE PATH ===============
 						toinspect.push(getPath(currentFile.url)+url);
 						currentFile.after.push(getPath(currentFile.url)+url);
@@ -90,8 +92,10 @@
 					}
 				}
 				if(satisfied){
+					w.compiled = w.compiled+rule[i].content;
 					order.unshift(rule[i].url);
 					rule.splice(i--,1);
+					
 				}
 			}
 		}
