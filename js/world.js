@@ -41,38 +41,6 @@ function World(aw,ah){
 				}
 			}
 		}
-		for(x = 0 ; x<this.w; x+=1){
-			for(y = 0.5; y<this.h-0.5; y+=1){
-				if (this.getCell(x, Math.floor(y)).wall && this.getCell(x, Math.ceil(y)).wall) {
-					res.i.wall.drawFrameAt(ctx, 1, x * size, y * size, 0);
-				}
-			}
-		}
-		for(x = 0.5 ; x<this.w-0.5; x+=1){
-			for(y = 0; y<this.h; y+=1){
-				if (this.getCell(Math.floor(x), y).wall && this.getCell(Math.ceil(x), y).wall) {
-					res.i.wall.drawFrameAt(ctx, 2, x * size, y * size, 0);
-				}
-			}
-		}
-		for(x = 0.5 ; x<this.w-0.5; x+=1){
-			for(y = 0.5; y<this.h-0.5; y+=1){
-				if (this.getCell(Math.floor(x), Math.ceil(y)).wall && this.getCell(Math.ceil(x), Math.floor(y)).wall) {
-					//		
-					if(!this.getCell(Math.floor(x), Math.floor(y)).wall && !this.getCell(Math.ceil(x), Math.ceil(y)).wall){
-						res.i.wall.drawFrameAt(ctx, 3, x * size, y * size, 0);
-					}
-				}
-				if (this.getCell(Math.floor(x), Math.floor(y)).wall && this.getCell(Math.ceil(x), Math.ceil(y)).wall) {
-					//		
-					if(!this.getCell(Math.floor(x), Math.ceil(y)).wall && !this.getCell(Math.ceil(x), Math.floor(y)).wall){
-						res.i.wall.drawFrameAt(ctx, 4, x * size, y * size, 0);
-					}
-				}
-			}
-		}
-		var tt = size;
-		res.i.player.drawFrameAt(ctx,0,Math.round((canvas.mouseX-tt/2)/tt)*tt, Math.round((canvas.mouseY-tt/2)/tt)*tt);
 	}).bind(this);
 	
 	// ========= CONSTRUCTION ===================
@@ -80,7 +48,10 @@ function World(aw,ah){
 	this.w = aw;
 	this.h = ah;
 	
+	this.scale = 32;
+	
 	this.cells = null;
+	this.entities = [];
 	
 	this.setSize(this.w, this.h);
 	
