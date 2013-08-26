@@ -38,4 +38,6 @@ function Robot(){
 
 //function behaviour
 
-//function bRobotBlink
+function bRobotBlink(){
+	this.on
+}
