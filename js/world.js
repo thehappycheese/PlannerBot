@@ -31,16 +31,8 @@ function World(aw,ah){
 		return this.cells[y][x];
 	}).bind(this);
 	
-	this.draw = (function(ctx){
-		var x, y;
-		for(x = 0 ; x<this.w; x++){
-			for(y = 0; y<this.h; y++){				
-				res.i.grass.drawFrameAt(ctx, 0, x * size, y * size, 0);
-				if (this.getCell(x, y).wall) {
-					res.i.wall.drawFrameAt(ctx, 0, x * size, y * size, 0);
-				}
-			}
-		}
+	this.update = (function(){
+		
 	}).bind(this);
 	
 	// ========= CONSTRUCTION ===================
